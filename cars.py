@@ -20,7 +20,38 @@ def print_menu():
     print('3. Изменить характеристики машины')
     print('4. Поиск')
     print('5. Удалить машину')
-    print('6. Выйти')
+    print("6. Статистика по машинам")
+    print('7. Выйти')
+def display_statistic():
+    if not d:
+        print('В базе нет таких машин')
+        return
+    brand_count = {}
+    color_count = {}
+    
+    for car in d.values():
+        brand = car[0]
+        color = car[1]
+        
+        if brand in brand_count:
+            brand_count[brand] +=1
+        else:
+            brand_count[brand] =1
+        
+        if color in color_count:
+            color_count[color] +=1
+        else:
+            color_count[color] =1
+    print("\nСтатистика машин:")
+    print('\nКоличество машин по маркам:')
+    for brand, count in brand_count.items():
+        print(f"{brand}: {count}")
+        
+    print('\nКоличество машин по цветам:')
+    for color, count in color_count.items():
+        print(f"{color}: {count}")
+     
+
 
 def get_valid_input(prompt, validation_func):
     while True:
@@ -33,15 +64,15 @@ def is_yes_no(value):
     return value in ["Yes", "No"]
 
 vsm = 0
-while vsm != 6:
+while vsm != 7:
     print_menu()
     while True:
         try:
             vsm = int(input("Выберите действие: "))
-            if 1 <= vsm <= 6:
+            if 1 <= vsm <= 7:
                 break 
             else:
-                print('Некорректный ввод. Введите число от 1 до 6.')
+                print('Некорректный ввод. Введите число от 1 до 7.')
         except ValueError:
             print('Некорректный ввод. Попробуйте еще раз.')
 
@@ -155,3 +186,6 @@ while vsm != 6:
                     print('Некорректный номер машины.')
             except ValueError:
                 print('Некорректный ввод. Попробуйте еще раз.')
+    elif vsm == 6:
+        display_statistic()
+        
